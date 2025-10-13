@@ -1,7 +1,8 @@
+import { SQL } from "bun";
 import { Database } from "bun:sqlite";
 
 const db = new Database("db.sqlite", { create: true });
-
+const sqlite = new SQL("sqlite://db.sqlite");
 db.query(`
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -18,4 +19,4 @@ CREATE TABLE IF NOT EXISTS posts (
 )
 `).run();
 
-export default db;
+export { db, sqlite };

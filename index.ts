@@ -1,6 +1,6 @@
 import figlet from "figlet";
 
-import db from "./lib/db";
+import { db, sqlite } from "./lib/db";
 import seed from "./lib/seed";
 
 const server = Bun.serve({
@@ -24,6 +24,14 @@ const server = Bun.serve({
         "/posts": {
             GET: async (req) => {
                 return new Response(JSON.stringify(db.query(`SELECT * FROM posts`).all()));
+            }
+        },
+        "/users/:id": {
+            GET: async (req) => {
+                const url = new URL(req.url);
+                const id = url.pathname.split('/').pop();
+                const result = sqlite`SELECT * FROM users WHERE id = ${id}`.values();
+                return new Response(JSON.stringify(result));
             }
         }
     },
