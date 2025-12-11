@@ -1,8 +1,8 @@
 import { SQL } from "bun";
 import { Database } from "bun:sqlite";
 
-const db = new Database("db.sqlite", { create: true });
-const sqlite = new SQL("sqlite://db.sqlite");
+const db = new Database("db.sqlite", { create: true }); // create a new database file if it doesn't exist
+const sqlite = new SQL("sqlite://db.sqlite"); // create a new SQL instance
 db.query(`
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
