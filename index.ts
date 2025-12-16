@@ -33,6 +33,14 @@ const server = Bun.serve({
                 const result = sqlite`SELECT * FROM users WHERE id = ${id}`.values();
                 return new Response(JSON.stringify(result));
             }
+        },
+        "/posts/:id": {
+            GET: async (req) => {
+                const url = new URL(req.url);
+                const id = url.pathname.split('/').pop();
+                const result = sqlite`SELECT * FROM posts WHERE id = ${id}`.values();
+                return new Response(JSON.stringify(result));
+            }
         }
     },
     port: 3000,
